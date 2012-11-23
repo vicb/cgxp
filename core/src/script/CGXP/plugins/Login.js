@@ -46,6 +46,12 @@ Ext.namespace("cgxp.plugins");
  *              loginURL: "${request.route_url('login', path='')}",
  *              logoutURL: "${request.route_url('logout', path='')}",
  *              permalinkId: "permalink",
+ *              windowConfig: {
+ *                modal: true,
+ *                anchoring: {
+ *                  enabled: false
+ *                }
+ *              }
  *          }]
  *          ...
  *      });
@@ -93,6 +99,12 @@ cgxp.plugins.Login = Ext.extend(gxp.plugins.Tool, {
      */
     extraHtml: null,
 
+    /** api[config]: windowConfig
+     *  ``Object``
+     *  Config object for the login window.
+     */
+    windowConfig: null,
+
     button: null,
     loginForm: null,
 
@@ -139,10 +151,10 @@ cgxp.plugins.Login = Ext.extend(gxp.plugins.Tool, {
             });
         }
 
-        var loginWindow = new cgxp.tool.Window({
+        var loginWindow = new cgxp.tool.Window(Ext.apply({
             width: 250,
             items: items
-        });
+        },this.windowConfig));
         loginWindow.render(Ext.getBody());
 
         var loginButton;
